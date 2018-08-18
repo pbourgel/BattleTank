@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Math/Vector.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -35,9 +36,33 @@ void ATankPlayerController::AimTowardsCrosshair()
     //We aren't aiming anything if we haven't possessed a tank
     if(!GetControlledTank()) return;
     
-    //Get world location if linetrace through crosshair
-    //If it hits the landscape
+    FVector HitLocation;
+
+    //UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"),*HitLocation.ToString());
+    
+    //Get world location of linetrace through crosshair (in Unityspeak this is a ScreenToPointRay raycast at the crosshair)
+    if(GetSightRayHitLocation(HitLocation)) //Side-effect: Performs raytrace and stores location of object hit in HitLocation
+    {
+        //If it hits the landscape
         //Tell controlled tank to aim at this point
+    }
+
     
 }
 
+//Get world location of linetrace through crosshair, return true if hits landscape
+bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
+{
+
+    FVector playerLocation;
+    FRotator playerRotation;
+    //(in Unityspeak this is a ScreenToPointRay raycast at the crosshair)
+    //if we did hit something, return true
+    if(true)
+    {
+        OutHitLocation = FVector(1.0);
+        return true;
+    }
+    //else return false
+    else {return false;}
+}
