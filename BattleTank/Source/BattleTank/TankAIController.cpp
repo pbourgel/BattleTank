@@ -37,6 +37,21 @@ void ATankAIController::BeginPlay()
     }
 }
 
+void ATankAIController::Tick(float DeltaTime)
+{
+    if(PlayerTank != nullptr)
+    {
+        //TODO: Move towards the player
+        
+        //Start aiming towards the player
+        GetControlledTank()->AimAt(PlayerTank->GetActorLocation());
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("%s has nothing to aim at"), *(GetName()));
+    }
+}
+
 ATank* ATankAIController::GetPlayerTank() const
 {
     APawn* pwn = GetWorld()->GetFirstPlayerController()->GetPawn();
