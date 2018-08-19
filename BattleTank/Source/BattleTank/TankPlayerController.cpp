@@ -56,7 +56,19 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
     FVector playerLocation;
     FRotator playerRotation;
+
+    
+    
     //(in Unityspeak this is a ScreenToPointRay raycast at the crosshair)
+    //Find the crosshair position
+    int32 ViewportSizeX, ViewportSizeY;
+    GetViewportSize(ViewportSizeX, ViewportSizeY);
+    FVector2D screenLocation = FVector2D(ViewportSizeX*CrossHairXLocation, ViewportSizeY*CrossHairYLocation);
+    //UE_LOG(LogTemp, Warning, TEXT("ScreenLocation: %s"),*screenLocation.ToString())
+    
+    //"De-project" the screen position of the crosshair to a world direction
+    //Line-trace along that look direction and see what we hit up to a maximum range
+    
     //if we did hit something, return true
     if(true)
     {
