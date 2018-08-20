@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "TankAimingComponent.h"
-#include "Tank.generated.h"
+#include "Tank.generated.h"  //This must be the last include!
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -20,7 +20,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-    
+    UTankAimingComponent* aimingComponent = nullptr;
     
 public:	
 	// Called every frame
@@ -30,5 +30,11 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     void AimAt(FVector aimLocation);
-	
+    
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+    
+    UPROPERTY(EditAnywhere, Category = Firing)
+    float launchSpeed = 100000.0f; //The ting goes BOOM  TODO: Find good default fam QUICK MATHS!
+    
 };
