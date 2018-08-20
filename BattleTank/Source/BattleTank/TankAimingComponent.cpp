@@ -14,23 +14,23 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-// Called when the game starts
-void UTankAimingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
+//// Called when the game starts
+//void UTankAimingComponent::BeginPlay()
+//{
+//    Super::BeginPlay();
+//
+//    // ...
+//
+//}
+//
+//
+//// Called every frame
+//void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+//{
+//    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+//
+//    // ...
+//}
 
 void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 {
@@ -46,19 +46,18 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
         //OutLaunchVelocity = startLocation * launchSpeed;
         
         //Calculate the OutLaunchVelocity
-        if(UGameplayStatics::SuggestProjectileVelocity(this,
+        bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this,
                                   OutLaunchVelocity,
                                   startLocation,
                                   worldSpaceAim,
                                   launchSpeed,
-                                  false,
-                                  0.0f, //TODO: Find sensible collision radius BOOM
-                                  0.0f,
-                                  ESuggestProjVelocityTraceOption::Type::DoNotTrace))
+                                  ESuggestProjVelocityTraceOption::Type::DoNotTrace);
+        if(bHaveAimSolution)
         {
             auto aimDirection = OutLaunchVelocity.GetSafeNormal();
             auto tankName = GetOwner()->GetName();
-            UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *tankName, *(aimDirection.ToString()));
+            //UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *tankName, *(aimDirection.ToString()));
+            MoveBarrelTowards(OutLaunchVelocity);
         }
         else
         {
@@ -72,4 +71,28 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* barrelToSet)
 {
     tankBarrel = barrelToSet;
+}
+
+void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
+{
+
+    //Calculate the new rotation from the unit vector stored in OutLaunchVelocity
+    FRotator fwdRotator = tankBarrel->GetForwardVector().Rotation();
+    FRotator aimRotation = aimDirection.Rotation();
+    FRotator deltaRotator = aimRotation - fwdRotator;
+    
+    UE_LOG(LogTemp, Warning, TEXT("aimRotation: %s"), *(aimRotation.ToString()))
+    
+    
+    
+    //Rotate (lerp in Unity-speak) to the new rotation ONLY along the pitch given a max rotation speed and the frame time
+    //TODO: Need barrel.cpp first to store rotation limits
+    
+    //(wanna keep this frame independent)
+
+    
+    //Rotate the turret
+    
+    
+    
 }

@@ -18,19 +18,19 @@ public:
     void AimAt(FVector aimLocation, float launchSpeed);
     
     void SetBarrelReference(UStaticMeshComponent* barrelToSet);
-    
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    //TODO: Add set turren reference (why did Ben add this is we already have a pointer and a method for this?)
+//protected:
+//    // Called when the game starts
+//    virtual void BeginPlay() override;
+//
+//public:    
+//    // Called every frame
+//    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
     
     UStaticMeshComponent* tankBarrel;
     
-
+    void MoveBarrelTowards(FVector aimDirection);
 	
 };
