@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -68,7 +69,7 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
     }
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* barrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrelToSet)
 {
     tankBarrel = barrelToSet;
 }
@@ -82,17 +83,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
     FRotator deltaRotator = aimRotation - fwdRotator;
     
     UE_LOG(LogTemp, Warning, TEXT("aimRotation: %s"), *(aimRotation.ToString()))
-    
-    
-    
-    //Rotate (lerp in Unity-speak) to the new rotation ONLY along the pitch given a max rotation speed and the frame time
-    //TODO: Need barrel.cpp first to store rotation limits
-    
-    //(wanna keep this frame independent)
 
+    tankBarrel->Elevate(elevateSpeed); 
     
     //Rotate the turret
-    
-    
-    
 }

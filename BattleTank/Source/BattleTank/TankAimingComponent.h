@@ -6,7 +6,10 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+//Forward declaration
+class UTankBarrel;
 
+//Holds barrel's parameters and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -17,7 +20,7 @@ public:
 	UTankAimingComponent();
     void AimAt(FVector aimLocation, float launchSpeed);
     
-    void SetBarrelReference(UStaticMeshComponent* barrelToSet);
+    void SetBarrelReference(UTankBarrel* barrelToSet);
     //TODO: Add set turren reference (why did Ben add this is we already have a pointer and a method for this?)
 //protected:
 //    // Called when the game starts
@@ -29,8 +32,11 @@ public:
 
 private:
     
-    UStaticMeshComponent* tankBarrel;
+    UTankBarrel* tankBarrel;
     
     void MoveBarrelTowards(FVector aimDirection);
 	
+    UPROPERTY(EditAnywhere, Category = Setup)
+    float elevateSpeed = 5.0f;
+    
 };
