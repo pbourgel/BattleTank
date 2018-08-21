@@ -25,13 +25,13 @@ UTankAimingComponent::UTankAimingComponent()
 //}
 //
 //
-//// Called every frame
-//void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//    // ...
-//}
+// Called every frame
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+    // ...
+}
 
 void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 {
@@ -57,12 +57,12 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
         {
             auto aimDirection = OutLaunchVelocity.GetSafeNormal();
             auto tankName = GetOwner()->GetName();
-            //UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *tankName, *(aimDirection.ToString()));
+            UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
             MoveBarrelTowards(OutLaunchVelocity);
         }
         else
         {
-
+            UE_LOG(LogTemp, Warning, TEXT("Aim solution NOT found"));
         }
 
         
