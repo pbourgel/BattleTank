@@ -87,7 +87,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
     
     UE_LOG(LogTemp, Warning, TEXT("aimRotation: %s"), *(aimRotation.ToString()))
 
-    tankBarrel->Elevate(elevateSpeed); 
+    tankBarrel->Elevate(deltaRotator.Pitch); 
     
     //Rotate the turret
 }

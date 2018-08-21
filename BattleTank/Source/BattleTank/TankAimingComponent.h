@@ -35,8 +35,5 @@ private:
     UTankBarrel* tankBarrel;
     
     void MoveBarrelTowards(FVector aimDirection);
-	
-    UPROPERTY(EditAnywhere, Category = Setup)
-    float elevateSpeed = 5.0f;
     
 };
