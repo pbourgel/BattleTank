@@ -8,6 +8,7 @@
 
 //Forward declaration
 class UTankBarrel;
+class UTankTurret;
 
 //Holds barrel's parameters and Elevate method
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -21,6 +22,9 @@ public:
     void AimAt(FVector aimLocation, float launchSpeed);
     
     void SetBarrelReference(UTankBarrel* barrelToSet);
+    
+    void SetTurretReference(UTankTurret* turretToSet);
+    
     //TODO: Add set turren reference (why did Ben add this if we already have a pointer and a method for this?)
 //protected:
 //    // Called when the game starts
@@ -34,6 +38,9 @@ private:
     
     UTankBarrel* tankBarrel;
     
+    UTankTurret* tankTurret;
+    
     void MoveBarrelTowards(FVector aimDirection);
     
+    void MoveTurretTowards(FVector aimDirection);
 };
