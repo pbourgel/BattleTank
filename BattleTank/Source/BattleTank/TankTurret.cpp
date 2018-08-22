@@ -14,7 +14,7 @@ void UTankTurret::TurretRotate(float relativeSpeed)
     
     // Still have a cold, but I understand the code now :P
     //float finalRotation = FMath::Clamp<float>(rawNewRotation, MinRotationDegrees, MaxRotationDegrees);
-    UE_LOG(LogTemp, Warning, TEXT("In tankTurret->TurretRotate() with speed %f"), relativeSpeed)
+    //UE_LOG(LogTemp, Warning, TEXT("In tankTurret->TurretRotate() with speed %f"), relativeSpeed)
     SetRelativeRotation(FRotator(0.0, NewRotation, 0.0));
     
 }

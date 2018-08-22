@@ -24,6 +24,10 @@ void ATank::BeginPlay()
     
 }
 
+void ATank::Fire()
+{
+    UE_LOG(LogTemp, Warning, TEXT("In Fire()"))
+}
 
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
