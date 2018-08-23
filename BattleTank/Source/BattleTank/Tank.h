@@ -45,16 +45,21 @@ public:
     UFUNCTION(BlueprintCallable, Category = Setup)
     void SetTurretReference(UTankTurret* turretToSet);
     
-    UPROPERTY(EditAnywhere, Category = Firing)
+    UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
     
+    UPROPERTY(EditDefaultsOnly, Category = Firing)
+    float reloadTimeInSeconds = 3.0f;
 private:
     
     // https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditDefaultsOnly, Category = Setup)
     TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
     
     //Local barrel reference for spawning projectile
     UTankBarrel* tankBarrel = nullptr;
-        
+    
+
+    
+    double lastFireTime = 0;
 };

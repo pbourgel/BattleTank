@@ -28,16 +28,20 @@ void ATank::BeginPlay()
 
 void ATank::Fire()
 {
-
+    bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
     
-    if(!tankBarrel) { return; }
+    if(tankBarrel && bIsReloaded) {
 
-    //Spawn a projectile at the socket location
-    FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
-    AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
-    projectile->LaunchProjectile(launchSpeed);
-    
-    //TODO: Play Big Shaq BOOM sound
+        //Spawn a projectile at the socket location
+        FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
+        AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
+        projectile->LaunchProjectile(launchSpeed);
+        
+        //TODO: Play Big Shaq BOOM sound
+        
+        
+        lastFireTime = FPlatformTime::Seconds();
+    }
 }
 
 // Called to bind functionality to input
