@@ -4,6 +4,8 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
 // Sets default values
 ATank::ATank()
@@ -26,7 +28,16 @@ void ATank::BeginPlay()
 
 void ATank::Fire()
 {
-    UE_LOG(LogTemp, Warning, TEXT("In Fire()"))
+
+    
+    if(!tankBarrel) { return; }
+
+    //Spawn a projectile at the socket location
+    FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
+    AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
+    projectile->LaunchProjectile(launchSpeed);
+    
+    //TODO: Play Big Shaq BOOM sound
 }
 
 // Called to bind functionality to input
@@ -45,6 +56,7 @@ void ATank::AimAt(FVector aimLocation)
 void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
 {
     aimingComponent->SetBarrelReference(barrelToSet);
+    tankBarrel = barrelToSet;
 }
 
 void ATank::SetTurretReference(UTankTurret* turretToSet)
