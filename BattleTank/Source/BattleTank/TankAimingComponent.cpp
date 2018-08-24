@@ -37,7 +37,6 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 
 void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 {
-    UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s with launch speed %f"), *(GetOwner()->GetName()), *worldSpaceAim.ToString(), *(tankBarrel->GetComponentLocation().ToString()), launchSpeed);
     
     FVector OutLaunchVelocity;
     
@@ -63,18 +62,23 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
             auto aimDirection = OutLaunchVelocity.GetSafeNormal();
             auto tankName = GetOwner()->GetName();
             //UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
-            MoveBarrelTowards(OutLaunchVelocity);
+            MoveBarrelTowards(aimDirection);
+//            if(!tankTurret) {
+//                UE_LOG(LogTemp, Warning, TEXT("Turret not found"));
+//
+//                return; }
+//            else
+//            {
+//                MoveTurretTowards(worldSpaceAim.GetSafeNormal());
+//                //MoveTurretTowards(worldSpaceAim);
+//            }
         }
         else
         {
             //UE_LOG(LogTemp, Warning, TEXT("Aim solution NOT found"));
         }
 
-        if(!tankTurret) { return; }
-        else
-        {
-            MoveTurretTowards(worldSpaceAim.GetSafeNormal());
-        }
+
     }
     
 
@@ -103,6 +107,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
     //UE_LOG(LogTemp, Warning, TEXT("aimRotation: %s"), *(aimRotation.ToString()))
 
     tankBarrel->Elevate(deltaRotator.Pitch);
+    
+    if (FMath::Abs(deltaRotator.Yaw) < 180)
+    {
+        tankTurret->TurretRotate(deltaRotator.Yaw);
+    }
+    else // Avoid going the long-way round
+    {
+        tankTurret->TurretRotate(-deltaRotator.Yaw);
+    }
     //tankTurret->TurretRotate(deltaRotator.Yaw);
     
 }
@@ -110,7 +123,8 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
 {
     //Rotate the turret
-    
+    UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *(GetOwner()->GetName()), *aimDirection.ToString(), *(tankBarrel->GetComponentLocation().ToString()));
+
     FRotator turretFwd = tankTurret->GetForwardVector().Rotation();
     FRotator turretAimRotation = aimDirection.Rotation();
     FRotator turretDeltaRotator = turretAimRotation - turretFwd;
