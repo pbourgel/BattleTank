@@ -123,7 +123,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
 {
     //Rotate the turret
-    UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *(GetOwner()->GetName()), *aimDirection.ToString(), *(tankBarrel->GetComponentLocation().ToString()));
+    //UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s from %s"), *(GetOwner()->GetName()), *aimDirection.ToString(), *(tankBarrel->GetComponentLocation().ToString()));
 
     FRotator turretFwd = tankTurret->GetForwardVector().Rotation();
     FRotator turretAimRotation = aimDirection.Rotation();

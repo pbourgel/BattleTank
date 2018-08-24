@@ -13,7 +13,10 @@ class UTankAimingComponent;
 class UTankTurret;
 class AProjectile;
 
-
+/*
+ * Handles firing and calls aiming functions on UTankAimingComponent.
+ * This class keeps track of variables such as projectile launch speed and time to reload.
+ */
 UCLASS()
 class BATTLETANK_API ATank : public APawn
 {

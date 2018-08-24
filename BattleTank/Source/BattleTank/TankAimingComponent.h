@@ -10,7 +10,10 @@
 class UTankBarrel;
 class UTankTurret;
 
-//Holds barrel's parameters and Elevate method
+/*
+ * Executes aiming movements and related calculations for both the player and AI tanks.
+ * Sets references to the barrel and turret objects.
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {

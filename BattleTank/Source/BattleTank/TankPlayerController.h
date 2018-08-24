@@ -10,7 +10,8 @@
 class ATank;
 
 /**
- * 
+ * Handles the raycasting through the player screen to figure out where
+ * the tank turret should rotate/elevate to.
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController

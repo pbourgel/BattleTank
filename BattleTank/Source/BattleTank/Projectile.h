@@ -8,6 +8,9 @@
 
 class UProjectileMovementComponent;
 
+/*
+ * Launches projectiles and related effects.
+ */
 UCLASS()
 class BATTLETANK_API AProjectile : public AActor
 {
