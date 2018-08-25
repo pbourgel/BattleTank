@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
@@ -10,8 +10,6 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
         if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
-    //TODO: Prevent double-speed due to dual control use
-    
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -20,8 +18,6 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
         if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(-Throw);
     RightTrack->SetThrottle(Throw);
-    //TODO: Prevent double-speed due to dual control use
-    
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
@@ -32,10 +28,12 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
     FVector AIForwardIntention = MoveVelocity.GetSafeNormal();
     FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
     
-    IntendMoveForward(FVector::DotProduct(TankForward, AIForwardIntention));
+    float forwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+    float rightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
     
-    IntendTurnRight(FVector::CrossProduct(TankForward, AIForwardIntention).Z);
-    
+    IntendMoveForward(forwardThrow);
+    IntendTurnRight(rightThrow);
+    //UE_LOG(LogTemp, Warning, TEXT("Forward: %f  Right: %f"), forwardThrow, rightThrow)
 }
 
 void UTankMovementComponent::Initialize(UTankTrack* leftTrackToSet, UTankTrack* rightTrackToSet)           //Spelt with a z because MURRICA
