@@ -24,6 +24,12 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
     
 }
 
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+    //No need to call Super 'cause we're overriding errythang
+    UE_LOG(LogTemp, Warning, TEXT("%s in RequestDirectMove() with MoveVelocity %s"), *(GetName()), *(MoveVelocity.ToString()))
+}
+
 void UTankMovementComponent::Initialize(UTankTrack* leftTrackToSet, UTankTrack* rightTrackToSet)           //Spelt with a z because MURRICA
 {
 

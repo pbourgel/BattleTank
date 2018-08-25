@@ -36,7 +36,8 @@ void ATankAIController::Tick(float DeltaTime)
     if(PlayerTank != nullptr)
     {
         //TODO: Move towards the player
-         
+        MoveToActor(PlayerTank, AcceptanceRadius, true, true, false);  //TODO: Check radius is in centimeters
+        
         APawn* pwn = GetPawn();
         if(!pwn) { return; }
         AITank = Cast<ATank>(pwn);

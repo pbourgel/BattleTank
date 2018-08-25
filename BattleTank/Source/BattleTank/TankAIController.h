@@ -28,6 +28,9 @@ private:
     ATank* AITank;
     ATank* PlayerTank;
     
+    //How close can the AI Tank get to the player before stopping?
+    UPROPERTY(EditDefaultsOnly)
+    float AcceptanceRadius = 3000.0f;
 
     
 };
