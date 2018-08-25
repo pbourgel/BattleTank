@@ -7,8 +7,18 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
     //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
-    
+        if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(Throw);
+    RightTrack->SetThrottle(Throw);
+    //TODO: Prevent double-speed due to dual control use
+    
+}
+
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+    //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
+        if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
+    LeftTrack->SetThrottle(-Throw);
     RightTrack->SetThrottle(Throw);
     //TODO: Prevent double-speed due to dual control use
     
@@ -16,7 +26,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::Initialize(UTankTrack* leftTrackToSet, UTankTrack* rightTrackToSet)           //Spelt with a z because MURRICA
 {
-    if(!leftTrackToSet || !rightTrackToSet) { return; }  //MAYBE TODO: Report an error
+
     
     LeftTrack = leftTrackToSet;
     RightTrack = rightTrackToSet;
