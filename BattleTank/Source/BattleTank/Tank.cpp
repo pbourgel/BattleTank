@@ -17,7 +17,7 @@ ATank::ATank()
     //No need to protect pointers as added at construction
     aimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
     
-    movementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
+    //movementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
 }
 
 // Called when the game starts or when spawned

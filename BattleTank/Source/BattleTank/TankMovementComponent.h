@@ -6,8 +6,10 @@
 #include "GameFramework/NavMovementComponent.h"
 #include "TankMovementComponent.generated.h"
 
+class UTankTrack;
+
 /**
- * Handles fly-by-wire controls (i.e. movement by controller stick).
+ * Responsible for driving tank tracks.
  */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API UTankMovementComponent : public UNavMovementComponent
@@ -19,5 +21,16 @@ public:
     UFUNCTION(BlueprintCallable, Category = Input)
     void IntendMoveForward(float Throw);
 	
-	
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    void Initialize(UTankTrack* leftTrackToSet, UTankTrack* rightTrackToSet);
+    
+private:
+    
+    //UPROPERTY()
+    UTankTrack* LeftTrack = nullptr;
+    
+    //UPROPERTY()
+    UTankTrack* RightTrack = nullptr;
+
+    
 };
