@@ -84,14 +84,11 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 
 }
 
-void UTankAimingComponent::SetBarrelReference(UTankBarrel* barrelToSet)
+void UTankAimingComponent::Initialize(UTankTurret* turretToSet, UTankBarrel* barrelToSet)
 {
     if(!barrelToSet) { return; }
     tankBarrel = barrelToSet;
-}
-
-void UTankAimingComponent::SetTurretReference(UTankTurret* turretToSet)
-{
+    
     if(!turretToSet) { return; }
     tankTurret = turretToSet;
 }

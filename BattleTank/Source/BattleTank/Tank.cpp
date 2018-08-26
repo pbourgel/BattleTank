@@ -15,7 +15,7 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 
     //No need to protect pointers as added at construction
-    aimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
+    //aimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
     
     //movementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
 }
@@ -60,13 +60,3 @@ void ATank::AimAt(FVector aimLocation)
     
 }
 
-void ATank::SetBarrelReference(UTankBarrel* barrelToSet)
-{
-    aimingComponent->SetBarrelReference(barrelToSet);
-    tankBarrel = barrelToSet;
-}
-
-void ATank::SetTurretReference(UTankTurret* turretToSet)
-{
-    aimingComponent->SetTurretReference(turretToSet);
-}

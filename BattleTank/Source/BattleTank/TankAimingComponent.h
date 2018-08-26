@@ -37,6 +37,9 @@ public:
     
     void SetTurretReference(UTankTurret* turretToSet);
     
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    void Initialize(UTankTurret* turretToSet, UTankBarrel* barrelToSet);
+    
     //TODO: Add set turren reference (why did Ben add this if we already have a pointer and a method for this?)
 //protected:
 //    // Called when the game starts
@@ -53,9 +56,9 @@ protected:
     
 private:
     
-    UTankBarrel* tankBarrel;
+    UTankBarrel* tankBarrel = nullptr;
     
-    UTankTurret* tankTurret;
+    UTankTurret* tankTurret = nullptr;
     
     void MoveBarrelTowards(FVector aimDirection);
     

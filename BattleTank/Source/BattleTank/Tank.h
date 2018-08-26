@@ -47,11 +47,11 @@ public:
 
     void AimAt(FVector aimLocation);
     
-    UFUNCTION(BlueprintCallable, Category = Setup)
-    void SetBarrelReference(UTankBarrel* barrelToSet);
-    
-    UFUNCTION(BlueprintCallable, Category = Setup)
-    void SetTurretReference(UTankTurret* turretToSet);
+//    UFUNCTION(BlueprintCallable, Category = Setup)
+//    void SetBarrelReference(UTankBarrel* barrelToSet);
+//    
+//    UFUNCTION(BlueprintCallable, Category = Setup)
+//    void SetTurretReference(UTankTurret* turretToSet);
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
@@ -66,8 +66,6 @@ private:
     
     //Local barrel reference for spawning projectile
     UTankBarrel* tankBarrel = nullptr;
-    
-
     
     double lastFireTime = 0;
 };
