@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
@@ -95,7 +95,7 @@ void UTankAimingComponent::Initialize(UTankTurret* turretToSet, UTankBarrel* bar
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
-
+    if(!tankBarrel || !tankTurret) { return; }
     //Calculate the new rotation from the unit vector stored in OutLaunchVelocity
     FRotator fwdRotator = tankBarrel->GetForwardVector().Rotation();
     FRotator aimRotation = aimDirection.Rotation();

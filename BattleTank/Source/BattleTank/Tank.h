@@ -32,7 +32,7 @@ public:
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	//virtual void BeginPlay() override;
     
     UPROPERTY(BlueprintReadOnly)
     UTankAimingComponent* aimingComponent = nullptr;
@@ -43,7 +43,7 @@ protected:
 public:	
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     void AimAt(FVector aimLocation);
     
@@ -65,7 +65,7 @@ private:
     TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
     
     //Local barrel reference for spawning projectile
-    UTankBarrel* tankBarrel = nullptr;
+    UTankBarrel* tankBarrel = nullptr;      //TODO: Remove barrel
     
     double lastFireTime = 0;
 };
