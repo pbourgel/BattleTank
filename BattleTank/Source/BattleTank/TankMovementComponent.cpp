@@ -38,8 +38,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 void UTankMovementComponent::Initialize(UTankTrack* leftTrackToSet, UTankTrack* rightTrackToSet)           //Spelt with a z because MURRICA
 {
-
-    
     LeftTrack = leftTrackToSet;
     RightTrack = rightTrackToSet;
 }
