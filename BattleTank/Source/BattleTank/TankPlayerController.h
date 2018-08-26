@@ -19,8 +19,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
-    ATank* GetControlledTank() const;
-	
+
     virtual void BeginPlay() override;
 	
     virtual void Tick(float DeltaTime) override;
@@ -45,4 +44,9 @@ private:
     bool GetLookDirection(FVector2D worldLocation, FVector& lookDirection) const;
     
     bool GetLookVectorHitLocation(FVector& hitLocation, FVector lookDirection) const;
+    
+protected:
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    ATank* GetControlledTank() const;
+    
 };
