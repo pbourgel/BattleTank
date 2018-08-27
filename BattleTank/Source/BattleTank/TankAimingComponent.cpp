@@ -95,6 +95,7 @@ void UTankAimingComponent::Initialize(UTankTurret* turretToSet, UTankBarrel* bar
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
+    
     if(!ensure(tankBarrel && tankTurret)) { return; }
     //Calculate the new rotation from the unit vector stored in OutLaunchVelocity
     FRotator fwdRotator = tankBarrel->GetForwardVector().Rotation();

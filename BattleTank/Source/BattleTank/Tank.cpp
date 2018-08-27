@@ -27,6 +27,9 @@ void ATank::BeginPlay()
     UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
 
     Super::BeginPlay();     //Needed for BP BeginPlay() to run!
+    
+    aimingComponent = FindComponentByClass<UTankAimingComponent>();
+    
 
 }
 

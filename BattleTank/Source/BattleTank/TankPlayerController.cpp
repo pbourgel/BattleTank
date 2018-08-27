@@ -23,8 +23,8 @@ void ATankPlayerController::BeginPlay()
 //    }                                                         //My inner Unity programmer is roaring right now
     UTankAimingComponent* aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
     
-    if(ensure(aimingComponent)) { FoundAimingComponent(aimingComponent); }
-    else { UE_LOG(LogTemp, Error, TEXT("Aiming component not found")) }
+    if(!ensure(aimingComponent)) { return; }
+    else { FoundAimingComponent(aimingComponent);  }
 }
 
 void ATankPlayerController::Tick(float DeltaTime)

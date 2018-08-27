@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-//#include "TankAimingComponent.h"
 #include "Tank.generated.h"  //This must be the last include!
 
 //Forward declarations
@@ -51,6 +50,7 @@ public:
 //    UFUNCTION(BlueprintCallable, Category = Setup)
 //    void SetTurretReference(UTankTurret* turretToSet);
     
+    //TODO Remove once firing is moved to aiming component
     UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
     
