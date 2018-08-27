@@ -2,7 +2,7 @@
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
-
+//Depends on movement component via pathfinding system
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {

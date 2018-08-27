@@ -2,9 +2,9 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
+//#include "TankMovementComponent.h"
 #include "TankBarrel.h"
-#include "TankTurret.h"
+//#include "TankTurret.h"
 #include "Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -34,6 +34,7 @@ void ATank::Fire()
 {
     bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
     
+    //ensure fails here
     if(!ensure(tankBarrel)) { return; }
     
     if(bIsReloaded) {
@@ -58,7 +59,7 @@ void ATank::Fire()
 //}
 
 void ATank::AimAt(FVector aimLocation)
-{
+{   //ensure fails here
     if(!ensure(aimingComponent)) { return; }
     aimingComponent->AimAt(aimLocation, launchSpeed);
     
