@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #pragma once
 
@@ -8,8 +8,11 @@
 #include "TankPlayerController.generated.h"     //Must be the last include!
 
 class ATank;
+class UTankAimingComponent;
 
 /**
+ * Responsible for helping the player aim.
+ *
  * Handles the raycasting through the player screen to figure out where
  * the tank turret should rotate/elevate to.
  */
@@ -49,4 +52,6 @@ protected:
     UFUNCTION(BlueprintCallable, Category = Setup)
     ATank* GetControlledTank() const;
     
+    UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+    void FoundAimingComponent(UTankAimingComponent* aimingCompRef);
 };

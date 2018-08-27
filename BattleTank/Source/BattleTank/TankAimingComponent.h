@@ -52,7 +52,7 @@ public:
 protected:
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
-    EFiringStatus firingState = EFiringStatus::Aiming;
+    EFiringStatus firingState = EFiringStatus::Locked;
     
 private:
     

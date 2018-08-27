@@ -1,21 +1,29 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #include "TankPlayerController.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 #include "Math/Vector.h"
+
+/*
+ * Responsible for helping the player aim
+ */
 
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     PlayerTank = GetControlledTank();
-    if(PlayerTank != nullptr)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("TankPlayerController: GetControlledTank() possessing %s"), *(PlayerTank->GetName()));
-    }
-    else
-    {
-        UE_LOG(LogTemp, Error, TEXT("TankPlayerController not possessing a tank"));
-    }
+//    if(PlayerTank != nullptr)
+//    {
+//        UE_LOG(LogTemp, Warning, TEXT("TankPlayerController: GetControlledTank() possessing %s"), *(PlayerTank->GetName()));
+//    }
+//    else
+//    {
+//        UE_LOG(LogTemp, Error, TEXT("TankPlayerController not possessing a tank"));
+//    }                                                         //My inner Unity programmer is roaring right now
+    UTankAimingComponent* aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+    if(aimingComponent) { FoundAimingComponent(aimingComponent); }
+    else { UE_LOG(LogTemp, Error, TEXT("Aiming component not found")) }
 }
 
 void ATankPlayerController::Tick(float DeltaTime)

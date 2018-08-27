@@ -24,9 +24,10 @@ ATank::ATank()
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
+    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
+
     Super::BeginPlay();     //Needed for BP BeginPlay() to run!
 
-    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
 }
 
 void ATank::Fire()
