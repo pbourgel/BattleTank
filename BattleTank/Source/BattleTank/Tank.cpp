@@ -14,20 +14,20 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: In Tank Constructor"))
     //No need to protect pointers as added at construction
     //aimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
     
     //movementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("MovementComponent"));
 }
 
-//// Called when the game starts or when spawned
-//void ATank::BeginPlay()
-//{
-//    Super::BeginPlay();
-//
-//
-//
-//}
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+    Super::BeginPlay();     //Needed for BP BeginPlay() to run!
+
+    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
+}
 
 void ATank::Fire()
 {
