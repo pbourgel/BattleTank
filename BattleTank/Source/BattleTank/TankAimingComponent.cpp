@@ -40,7 +40,7 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
     
     FVector OutLaunchVelocity;
     
-    if(!tankBarrel) { return; }
+    if(!ensure(tankBarrel)) { return; }
     else
     {
         FVector startLocation = tankBarrel->GetSocketLocation(FName("Projectile"));
@@ -63,7 +63,7 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
             auto tankName = GetOwner()->GetName();
             //UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
             MoveBarrelTowards(aimDirection);
-//            if(!tankTurret) {
+//            if(!ensure(tankTurret)) {
 //                UE_LOG(LogTemp, Warning, TEXT("Turret not found"));
 //
 //                return; }
@@ -86,16 +86,16 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
 
 void UTankAimingComponent::Initialize(UTankTurret* turretToSet, UTankBarrel* barrelToSet)
 {
-    if(!barrelToSet) { return; }
+    if(!ensure(barrelToSet)) { return; }
     tankBarrel = barrelToSet;
     
-    if(!turretToSet) { return; }
+    if(!ensure(turretToSet)) { return; }
     tankTurret = turretToSet;
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector aimDirection)
 {
-    if(!tankBarrel || !tankTurret) { return; }
+    if(!ensure(tankBarrel && tankTurret)) { return; }
     //Calculate the new rotation from the unit vector stored in OutLaunchVelocity
     FRotator fwdRotator = tankBarrel->GetForwardVector().Rotation();
     FRotator aimRotation = aimDirection.Rotation();

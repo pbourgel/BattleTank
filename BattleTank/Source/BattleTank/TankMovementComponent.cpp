@@ -7,7 +7,7 @@
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
     //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
-        if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
+        if(!ensure(LeftTrack && RightTrack)) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
 }
@@ -15,7 +15,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
     //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
-        if(!LeftTrack || !RightTrack) { return; }  //MAYBE TODO: Report an error
+        if(!ensure(LeftTrack && RightTrack)) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(-Throw);
     RightTrack->SetThrottle(Throw);
 }

@@ -22,7 +22,8 @@ void ATankPlayerController::BeginPlay()
 //        UE_LOG(LogTemp, Error, TEXT("TankPlayerController not possessing a tank"));
 //    }                                                         //My inner Unity programmer is roaring right now
     UTankAimingComponent* aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-    if(aimingComponent) { FoundAimingComponent(aimingComponent); }
+    
+    if(ensure(aimingComponent)) { FoundAimingComponent(aimingComponent); }
     else { UE_LOG(LogTemp, Error, TEXT("Aiming component not found")) }
 }
 
@@ -36,14 +37,14 @@ void ATankPlayerController::Tick(float DeltaTime)
 ATank* ATankPlayerController::GetControlledTank() const
 {
     APawn* pwn = GetPawn();
-    if(!pwn) { return nullptr; }
+    if(!ensure(pwn != nullptr)) { return nullptr; }
     return Cast<ATank>(pwn);
 }
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
     //We aren't aiming anything if we haven't possessed a tank
-    if(!GetControlledTank()) return;
+    if(!ensure(GetControlledTank())) return;
     
     FVector HitLocation;
 

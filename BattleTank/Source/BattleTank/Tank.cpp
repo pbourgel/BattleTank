@@ -34,7 +34,9 @@ void ATank::Fire()
 {
     bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
     
-    if(tankBarrel && bIsReloaded) {
+    if(!ensure(tankBarrel)) { return; }
+    
+    if(bIsReloaded) {
 
         //Spawn a projectile at the socket location
         FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
@@ -57,7 +59,7 @@ void ATank::Fire()
 
 void ATank::AimAt(FVector aimLocation)
 {
-    if(!aimingComponent) { return; }
+    if(!ensure(aimingComponent)) { return; }
     aimingComponent->AimAt(aimLocation, launchSpeed);
     
 }

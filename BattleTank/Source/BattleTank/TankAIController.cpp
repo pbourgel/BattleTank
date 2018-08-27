@@ -30,7 +30,7 @@ void ATankAIController::Tick(float DeltaTime)
 {
     
     APawn* tankPwn = GetWorld()->GetFirstPlayerController()->GetPawn();
-    if(!tankPwn) { return; }
+    if(!ensure(tankPwn)) { return; }
     PlayerTank = Cast<ATank>(tankPwn);
     
     if(PlayerTank != nullptr)
@@ -39,7 +39,7 @@ void ATankAIController::Tick(float DeltaTime)
         MoveToActor(PlayerTank, AcceptanceRadius, true, true, false);  //TODO: Check radius is in centimeters
         
         APawn* pwn = GetPawn();
-        if(!pwn) { return; }
+        if(!ensure(pwn)) { return; }
         AITank = Cast<ATank>(pwn);
         
         //Start aiming towards the player
