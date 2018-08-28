@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAIController.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 
 void ATankAIController::BeginPlay()
@@ -29,27 +30,21 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
     
-    APawn* tankPwn = GetWorld()->GetFirstPlayerController()->GetPawn();
-    if(!ensure(tankPwn)) { return; }
-    PlayerTank = Cast<ATank>(tankPwn);
+    APawn* playerTankPwn = GetWorld()->GetFirstPlayerController()->GetPawn();
+    AITank = GetPawn();
     
-    if(PlayerTank != nullptr)
-    {
-        //TODO: Move towards the player
-        MoveToActor(PlayerTank, AcceptanceRadius, true, true, false);  //TODO: Check radius is in centimeters
+    if(!ensure(playerTankPwn && AITank)) { return; }
+    
+    //TODO: Move towards the player
+    MoveToActor(Cast<AActor>(playerTankPwn), AcceptanceRadius, true, true, false);  //TODO: Check radius is in centimeters
         
-        APawn* pwn = GetPawn();
-        if(!ensure(pwn)) { return; }
-        AITank = Cast<ATank>(pwn);
+    AITankAiming = AITank->FindComponentByClass<UTankAimingComponent>();
         
-        //Start aiming towards the player
-        AITank->AimAt(PlayerTank->GetActorLocation());
+    //Start aiming towards the player
+    AITankAiming->AimAt(playerTankPwn->GetActorLocation());
         
-        //Fire at player
-        AITank->Fire();     
-    }
-    else
-    {
-        UE_LOG(LogTemp, Error, TEXT("%s has nothing to aim at"), *(GetName()));
-    }
+    //Fire at player
+    //TODO: Fix Firing
+    //AITank->Fire();
+    
 }

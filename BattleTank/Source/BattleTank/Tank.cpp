@@ -1,7 +1,7 @@
 // It's MIT licensed fam
 
 #include "Tank.h"
-#include "TankAimingComponent.h"
+//#include "TankAimingComponent.h"
 //#include "TankMovementComponent.h"
 #include "TankBarrel.h"
 //#include "TankTurret.h"
@@ -14,7 +14,7 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: In Tank Constructor"))
+    //UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: In Tank Constructor"))
     //No need to protect pointers as added at construction
     //aimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("AimingComponent"));
     
@@ -24,11 +24,11 @@ ATank::ATank()
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
-    UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
+    //UE_LOG(LogTemp, Warning, TEXT("DISCONSCIOUS: %s In Tank BeginPlay()"), *(GetName()))
 
     Super::BeginPlay();     //Needed for BP BeginPlay() to run!
     
-    aimingComponent = FindComponentByClass<UTankAimingComponent>();
+    //aimingComponent = FindComponentByClass<UTankAimingComponent>();
     
 
 }
@@ -60,11 +60,11 @@ void ATank::Fire()
 //    Super::SetupPlayerInputComponent(PlayerInputComponent);
 //
 //}
-
-void ATank::AimAt(FVector aimLocation)
-{   //ensure fails here
-    if(!ensure(aimingComponent)) { return; }
-    aimingComponent->AimAt(aimLocation, launchSpeed);
-    
-}
+//
+//void ATank::AimAt(FVector aimLocation)
+//{   //ensure fails here
+//    if(!ensure(aimingComponent)) { return; }
+//    aimingComponent->AimAt(aimLocation);
+//    
+//}
 

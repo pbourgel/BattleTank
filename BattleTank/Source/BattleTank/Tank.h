@@ -8,7 +8,6 @@
 
 //Forward declarations
 class UTankBarrel;
-class UTankAimingComponent;
 class UTankTurret;
 class AProjectile;
 
@@ -31,9 +30,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-    
-    UPROPERTY(BlueprintReadOnly)
-    UTankAimingComponent* aimingComponent = nullptr;
+
     
 
     
@@ -42,7 +39,7 @@ public:
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-    void AimAt(FVector aimLocation);
+    //void AimAt(FVector aimLocation);
     
 //    UFUNCTION(BlueprintCallable, Category = Setup)
 //    void SetBarrelReference(UTankBarrel* barrelToSet);

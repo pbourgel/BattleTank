@@ -6,7 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"     //Must be the last include!
 
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -27,7 +26,7 @@ public:
     virtual void Tick(float DeltaTime) override;
     
 private:
-    ATank* PlayerTank;
+    APawn* PlayerTank;
     
     //Start the tank moving the barrel so that a shot would hit where the crosshair intersects the world
     void AimTowardsCrosshair();
@@ -47,9 +46,11 @@ private:
     
     bool GetLookVectorHitLocation(FVector& hitLocation, FVector lookDirection) const;
     
+
+    
 protected:
-    UFUNCTION(BlueprintCallable, Category = Setup)
-    ATank* GetControlledTank() const;
+    
+    UTankAimingComponent* aimingComponent;
     
     UFUNCTION(BlueprintImplementableEvent, Category = Setup)
     void FoundAimingComponent(UTankAimingComponent* aimingCompRef);

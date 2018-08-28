@@ -31,7 +31,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-    void AimAt(FVector aimLocation, float launchSpeed);
+    void AimAt(FVector aimLocation);
     
     void SetBarrelReference(UTankBarrel* barrelToSet);
     
@@ -53,6 +53,9 @@ protected:
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
     EFiringStatus firingState = EFiringStatus::Locked;
+    
+    UPROPERTY(EditDefaultsOnly, Category = Firing)
+    float launchSpeed = 4000.0f; //The ting goes BOOM
     
 private:
     

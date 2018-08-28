@@ -2,7 +2,7 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
+
 #include "Math/Vector.h"
 
 /*
@@ -12,7 +12,7 @@
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    PlayerTank = GetControlledTank();
+    PlayerTank = GetPawn();
 //    if(PlayerTank != nullptr)
 //    {
 //        UE_LOG(LogTemp, Warning, TEXT("TankPlayerController: GetControlledTank() possessing %s"), *(PlayerTank->GetName()));
@@ -21,7 +21,7 @@ void ATankPlayerController::BeginPlay()
 //    {
 //        UE_LOG(LogTemp, Error, TEXT("TankPlayerController not possessing a tank"));
 //    }                                                         //My inner Unity programmer is roaring right now
-    UTankAimingComponent* aimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+    aimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
     
     if(!ensure(aimingComponent)) { return; }
     else { FoundAimingComponent(aimingComponent);  }
@@ -34,17 +34,10 @@ void ATankPlayerController::Tick(float DeltaTime)
     AimTowardsCrosshair();
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
-{
-    APawn* pwn = GetPawn();
-    if(!ensure(pwn != nullptr)) { return nullptr; }
-    return Cast<ATank>(pwn);
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
     //We aren't aiming anything if we haven't possessed a tank
-    if(!ensure(GetControlledTank())) return;
+    //if(!ensure(GetControlledTank())) return;
     
     FVector HitLocation;
 
@@ -55,7 +48,8 @@ void ATankPlayerController::AimTowardsCrosshair()
     {
         //If it hits the landscape
         //Tell controlled tank to aim at this point
-        GetControlledTank()->AimAt(HitLocation);
+        //GetControlledTank()->AimAt(HitLocation);
+        aimingComponent->AimAt(HitLocation);
     }
 
     

@@ -35,7 +35,7 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
     // ...
 }
 
-void UTankAimingComponent::AimAt(FVector worldSpaceAim, float launchSpeed)
+void UTankAimingComponent::AimAt(FVector worldSpaceAim)
 {
     
     FVector OutLaunchVelocity;
