@@ -2,29 +2,10 @@
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
-//#include "Tank.h"
 
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
-//    if(AITank != nullptr)
-//    {
-//        UE_LOG(LogTemp, Warning, TEXT("TankAIController: GetControlledTank() possessing %s"), *(AITank->GetName()));
-//    }
-//    else
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("TankAIController not possessing a tank"));
-//    }
-//
-//    PlayerTank = GetPlayerTank();
-//    if(PlayerTank != nullptr)
-//    {
-//        UE_LOG(LogTemp, Warning, TEXT("TankAIController: Found player Tank %s"), *(PlayerTank->GetName()));
-//    }
-//    else
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("TankAIController: Player Tank not found"));
-//    }
 }
 
 void ATankAIController::Tick(float DeltaTime)

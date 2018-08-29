@@ -27,8 +27,7 @@ void UTankAimingComponent::BeginPlay()
 
     tankBarrel = GetOwner()->FindComponentByClass<UTankBarrel>();
 }
-//
-//
+
 // Called every frame
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -65,15 +64,7 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim)
             auto tankName = GetOwner()->GetName();
             //UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
             MoveBarrelTowards(aimDirection);
-//            if(!ensure(tankTurret)) {
-//                UE_LOG(LogTemp, Warning, TEXT("Turret not found"));
-//
-//                return; }
-//            else
-//            {
-//                MoveTurretTowards(worldSpaceAim.GetSafeNormal());
-//                //MoveTurretTowards(worldSpaceAim);
-//            }
+
         }
         else
         {
@@ -137,7 +128,6 @@ void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
     {
         tankTurret->TurretRotate(turretDeltaRotator.Yaw);
     }
-    //tankTurret->TurretRotate(turretDeltaRotator.Yaw);
 }
 
 void UTankAimingComponent::Fire()
@@ -155,7 +145,6 @@ void UTankAimingComponent::Fire()
         projectile->LaunchProjectile(launchSpeed);
         
         //TODO: Play Big Shaq BOOM sound
-        
         
         lastFireTime = FPlatformTime::Seconds();
     }

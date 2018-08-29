@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #include "TankTrack.h"
 
