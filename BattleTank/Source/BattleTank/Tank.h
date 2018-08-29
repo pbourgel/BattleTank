@@ -8,8 +8,8 @@
 
 //Forward declarations
 class UTankBarrel;
-class UTankTurret;
-class AProjectile;
+
+
 
 /*
  * Handles firing and calls aiming functions on UTankAimingComponent.
@@ -23,9 +23,6 @@ class BATTLETANK_API ATank : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATank();
-    
-    UFUNCTION(BlueprintCallable, Category = Setup)
-    void Fire();
 
 protected:
 	// Called when the game starts or when spawned
@@ -48,19 +45,14 @@ public:
 //    void SetTurretReference(UTankTurret* turretToSet);
     
     //TODO Remove once firing is moved to aiming component
-    UPROPERTY(EditDefaultsOnly, Category = Firing)
-    float launchSpeed = 4000.0f; //The ting goes BOOM
+    //UPROPERTY(EditDefaultsOnly, Category = Firing)
+    //float launchSpeed = 4000.0f; //The ting goes BOOM
     
-    UPROPERTY(EditDefaultsOnly, Category = Firing)
-    float reloadTimeInSeconds = 3.0f;
 private:
     
-    // https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
-    UPROPERTY(EditDefaultsOnly, Category = Setup)
-    TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
+
     
     //Local barrel reference for spawning projectile
-    UTankBarrel* tankBarrel = nullptr;      //TODO: Remove barrel
-    
-    double lastFireTime = 0;
+   // UTankBarrel* tankBarrel = nullptr;      //TODO: Remove barrel
+
 };

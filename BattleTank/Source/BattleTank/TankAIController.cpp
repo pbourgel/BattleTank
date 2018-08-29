@@ -2,7 +2,7 @@
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
+//#include "Tank.h"
 
 void ATankAIController::BeginPlay()
 {
@@ -45,6 +45,7 @@ void ATankAIController::Tick(float DeltaTime)
         
     //Fire at player
     //TODO: Fix Firing
-    //AITank->Fire();
+    AITankAiming->Fire();
     
 }
+

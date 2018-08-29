@@ -3,6 +3,7 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
 #include <cmath>
 
@@ -17,14 +18,15 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-//// Called when the game starts
-//void UTankAimingComponent::BeginPlay()
-//{
-//    Super::BeginPlay();
-//
-//    // ...
-//
-//}
+// Called when the game starts
+void UTankAimingComponent::BeginPlay()
+{
+    Super::BeginPlay();
+
+    // ...
+
+    tankBarrel = GetOwner()->FindComponentByClass<UTankBarrel>();
+}
 //
 //
 // Called every frame
@@ -136,4 +138,25 @@ void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
         tankTurret->TurretRotate(turretDeltaRotator.Yaw);
     }
     //tankTurret->TurretRotate(turretDeltaRotator.Yaw);
+}
+
+void UTankAimingComponent::Fire()
+{
+    bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
+    
+    //ensure fails here
+    if(!ensure(tankBarrel && projectileBlueprint)) { return; }
+    
+    if(bIsReloaded) {
+        
+        //Spawn a projectile at the socket location
+        FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
+        AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
+        projectile->LaunchProjectile(launchSpeed);
+        
+        //TODO: Play Big Shaq BOOM sound
+        
+        
+        lastFireTime = FPlatformTime::Seconds();
+    }
 }

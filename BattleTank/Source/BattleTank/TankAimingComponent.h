@@ -18,6 +18,7 @@ enum class EFiringStatus : uint8
 //Forward declaration
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 
 /*
  * Executes aiming movements and related calculations for both the player and AI tanks.
@@ -40,15 +41,18 @@ public:
     UFUNCTION(BlueprintCallable, Category = Setup)
     void Initialize(UTankTurret* turretToSet, UTankBarrel* barrelToSet);
     
-    //TODO: Add set turren reference (why did Ben add this if we already have a pointer and a method for this?)
+    //TODO: Add set turret reference (why did Ben add this if we already have a pointer and a method for this?)
 //protected:
-//    // Called when the game starts
-//    virtual void BeginPlay() override;
-//
+    // Called when the game starts
+    virtual void BeginPlay() override;
+
 public:    
     // Called every frame
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+    UFUNCTION(BlueprintCallable, Category = Setup)
+    void Fire();
+    
 protected:
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
@@ -56,6 +60,8 @@ protected:
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
+    
+
     
 private:
     
@@ -66,5 +72,14 @@ private:
     void MoveBarrelTowards(FVector aimDirection);
     
     void MoveTurretTowards(FVector aimDirection);
+    
+    double lastFireTime = 0;
+    
+    UPROPERTY(EditDefaultsOnly, Category = Firing)
+    float reloadTimeInSeconds = 3.0f;
+    
+    // https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
+    UPROPERTY(EditDefaultsOnly, Category = Setup)
+    TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
     
 };

@@ -1,11 +1,6 @@
 // It's MIT licensed fam
 
 #include "Tank.h"
-//#include "TankAimingComponent.h"
-//#include "TankMovementComponent.h"
-#include "TankBarrel.h"
-//#include "TankTurret.h"
-#include "Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 // Sets default values
@@ -33,26 +28,26 @@ void ATank::BeginPlay()
 
 }
 
-void ATank::Fire()
-{
-    bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-    
-    //ensure fails here
-    if(!ensure(tankBarrel)) { return; }
-    
-    if(bIsReloaded) {
-
-        //Spawn a projectile at the socket location
-        FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
-        AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
-        projectile->LaunchProjectile(launchSpeed);
-        
-        //TODO: Play Big Shaq BOOM sound
-        
-        
-        lastFireTime = FPlatformTime::Seconds();
-    }
-}
+//void ATank::Fire()
+//{
+//    bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
+//
+//    //ensure fails here
+//    if(!ensure(tankBarrel)) { return; }
+//
+//    if(bIsReloaded) {
+//
+//        //Spawn a projectile at the socket location
+//        FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
+//        AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
+//        projectile->LaunchProjectile(launchSpeed);
+//
+//        //TODO: Play Big Shaq BOOM sound
+//
+//
+//        lastFireTime = FPlatformTime::Seconds();
+//    }
+//}
 
 //// Called to bind functionality to input
 //void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
