@@ -15,6 +15,14 @@ enum class EFiringStatus : uint8
     Locked
 };
 
+UENUM()
+enum class EBarrelMoving : uint8
+{
+    Moving,
+    NotMoving,
+    DontAskMeICantEvenLookThroughTheBarrelPointerRightNowMate
+};
+
 //Forward declaration
 class UTankBarrel;
 class UTankTurret;
@@ -69,6 +77,8 @@ private:
     
     UTankTurret* tankTurret = nullptr;
     
+    FVector aimDirection = FVector(0.0f, 0.0f, 0.0f);
+    
     void MoveBarrelTowards(FVector aimDirection);
     
     void MoveTurretTowards(FVector aimDirection);
@@ -82,6 +92,6 @@ private:
     UPROPERTY(EditDefaultsOnly, Category = Setup)
     TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
     
-    bool IsBarrelMoving();
+    EBarrelMoving IsBarrelMoving();
     
 };

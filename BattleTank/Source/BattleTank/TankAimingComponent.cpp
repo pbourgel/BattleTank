@@ -31,23 +31,44 @@ void UTankAimingComponent::BeginPlay()
     lastFireTime = FPlatformTime::Seconds();
 }
 
-bool UTankAimingComponent::IsBarrelMoving()
-{
-    return true;
-}
-
 // Called every frame
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
     // ...
-    if((FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds)
+    if((FPlatformTime::Seconds() - lastFireTime) < reloadTimeInSeconds)
     {
         firingState = EFiringStatus::Reloading;
     }
+    else if(IsBarrelMoving() == EBarrelMoving::Moving)
+    {
+        firingState = EFiringStatus::Aiming;
+    }
+    else if(IsBarrelMoving() == EBarrelMoving::DontAskMeICantEvenLookThroughTheBarrelPointerRightNowMate)
+    {
+        UE_LOG(LogTemp, Error, TEXT("BARREL POINTER NOT FOUND!!!"))
+    }
+    else
+    {
+        firingState = EFiringStatus::Locked;
+    }
     //TODO handle aiming and locked states
     
+}
+
+EBarrelMoving UTankAimingComponent::IsBarrelMoving()
+{
+    if(!ensure(tankBarrel)) { return EBarrelMoving::DontAskMeICantEvenLookThroughTheBarrelPointerRightNowMate; }
+    FVector barrelFwdVector = tankBarrel->GetForwardVector();
+    if(barrelFwdVector.Equals(aimDirection, 0.01f))
+    {
+        return EBarrelMoving::NotMoving;
+    }
+    else
+    {
+        return EBarrelMoving::Moving;
+    }
 }
 
 void UTankAimingComponent::AimAt(FVector worldSpaceAim)
@@ -74,7 +95,7 @@ void UTankAimingComponent::AimAt(FVector worldSpaceAim)
                                   ESuggestProjVelocityTraceOption::Type::DoNotTrace);
         if(bHaveAimSolution)
         {
-            auto aimDirection = OutLaunchVelocity.GetSafeNormal();
+            aimDirection = OutLaunchVelocity.GetSafeNormal();
             auto tankName = GetOwner()->GetName();
             //UE_LOG(LogTemp, Warning, TEXT("Aim solution found"));
             MoveBarrelTowards(aimDirection);

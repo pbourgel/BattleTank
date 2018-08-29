@@ -29,7 +29,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-   
+    if(!GetPawn()) { return; }
     FVector HitLocation;
 
     //UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"),*HitLocation.ToString());
@@ -38,8 +38,7 @@ void ATankPlayerController::AimTowardsCrosshair()
     if(GetSightRayHitLocation(HitLocation)) //Side-effect: Performs raytrace and stores location of object hit in HitLocation
     {
         //If it hits the landscape
-        //Tell controlled tank to aim at this point
-        //GetControlledTank()->AimAt(HitLocation);
+        //Tell aiming component to aim at this point
         aimingComponent->AimAt(HitLocation);
     }
 
