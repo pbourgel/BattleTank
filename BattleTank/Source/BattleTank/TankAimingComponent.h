@@ -56,7 +56,7 @@ public:
 protected:
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
-    EFiringStatus firingState = EFiringStatus::Locked;
+    EFiringStatus firingState = EFiringStatus::Reloading;
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
@@ -81,5 +81,7 @@ private:
     // https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
     UPROPERTY(EditDefaultsOnly, Category = Setup)
     TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
+    
+    bool IsBarrelMoving();
     
 };

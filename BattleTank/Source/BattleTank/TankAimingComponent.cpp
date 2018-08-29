@@ -12,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -26,6 +26,14 @@ void UTankAimingComponent::BeginPlay()
     // ...
 
     tankBarrel = GetOwner()->FindComponentByClass<UTankBarrel>();
+    
+    //Added so that first fire is after initial reload
+    lastFireTime = FPlatformTime::Seconds();
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+    return true;
 }
 
 // Called every frame
@@ -34,6 +42,12 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
     // ...
+    if((FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds)
+    {
+        firingState = EFiringStatus::Reloading;
+    }
+    //TODO handle aiming and locked states
+    
 }
 
 void UTankAimingComponent::AimAt(FVector worldSpaceAim)
@@ -132,13 +146,11 @@ void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
 
 void UTankAimingComponent::Fire()
 {
-    bool bIsReloaded = (FPlatformTime::Seconds() - lastFireTime) > reloadTimeInSeconds;
-    
     //ensure fails here
-    if(!ensure(tankBarrel && projectileBlueprint)) { return; }
     
-    if(bIsReloaded) {
-        
+    if(firingState != EFiringStatus::Reloading) {
+        if(!ensure(tankBarrel)) { return; }
+        if(!ensure(projectileBlueprint)) { return; }
         //Spawn a projectile at the socket location
         FTransform projectileLocation = tankBarrel->GetSocketTransform(FName("Projectile"), ERelativeTransformSpace::RTS_World);
         AProjectile* projectile = GetWorld()->SpawnActor<AProjectile>(projectileBlueprint, projectileLocation, FActorSpawnParameters());
