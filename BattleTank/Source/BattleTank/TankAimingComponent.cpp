@@ -5,7 +5,6 @@
 #include "TankTurret.h"
 #include "Projectile.h"
 #include "Kismet/GameplayStatics.h"
-#include <cmath>
 
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
@@ -163,11 +162,12 @@ void UTankAimingComponent::MoveTurretTowards(FVector aimDirection)
     FRotator turretAimRotation = aimDirection.Rotation();
     FRotator turretDeltaRotator = turretAimRotation - turretFwd;
     
+    //Always yaw the shortest way
     if(abs(turretDeltaRotator.Yaw) > 180)
     {
         tankTurret->TurretRotate(turretDeltaRotator.Yaw * -1);
     }
-    else
+    else  //Avoid going the long way
     {
         tankTurret->TurretRotate(turretDeltaRotator.Yaw);
     }

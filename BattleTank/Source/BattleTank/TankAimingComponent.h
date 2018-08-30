@@ -71,7 +71,7 @@ protected:
 
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
-    float launchSpeed = 4000.0f; //The ting goes BOOM
+    float launchSpeed = 8000.0f; //The ting goes BOOM
     
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
