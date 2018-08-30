@@ -39,6 +39,8 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
     // ...
     if((FPlatformTime::Seconds() - lastFireTime) < reloadTimeInSeconds)
     {
+        
+        UE_LOG(LogTemp, Warning, TEXT("Time since last fire: %f"), FPlatformTime::Seconds() - lastFireTime)
         firingState = EFiringStatus::Reloading;
     }
     else if(IsBarrelMoving() == EBarrelMoving::Moving)
@@ -56,6 +58,8 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
     //TODO handle aiming and locked states
     
 }
+
+EFiringStatus UTankAimingComponent::GetFiringState() const { return firingState; }
 
 EBarrelMoving UTankAimingComponent::IsBarrelMoving()
 {
@@ -182,3 +186,5 @@ void UTankAimingComponent::Fire()
         lastFireTime = FPlatformTime::Seconds();
     }
 }
+
+

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #pragma once
 
@@ -61,15 +61,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = Setup)
     void Fire();
     
+    EFiringStatus GetFiringState() const;
+    
 protected:
-    //Needs to be protected so we can expose it to Blueprints
-    UPROPERTY(BlueprintReadOnly, Category = State)
-    EFiringStatus firingState = EFiringStatus::Reloading;
+
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
     float launchSpeed = 4000.0f; //The ting goes BOOM
     
-
+    //Needs to be protected so we can expose it to Blueprints
+    UPROPERTY(BlueprintReadOnly, Category = State)
+    EFiringStatus firingState = EFiringStatus::Reloading;
     
 private:
     

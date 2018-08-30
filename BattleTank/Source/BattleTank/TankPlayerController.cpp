@@ -36,7 +36,7 @@ void ATankPlayerController::AimTowardsCrosshair()
     
     //Get world location of linetrace through crosshair (in Unityspeak this is a ScreenToPointRay raycast at the crosshair)
     bool bGotHitLocation = GetSightRayHitLocation(HitLocation); //Side-effect: Performs raytrace and stores location of object hit in HitLocation
-    UE_LOG(LogTemp, Warning, TEXT("%i"), bGotHitLocation)
+    //UE_LOG(LogTemp, Warning, TEXT("%i"), bGotHitLocation)
     if(bGotHitLocation)
     {
         //If it hits the landscape

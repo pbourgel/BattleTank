@@ -26,7 +26,10 @@ void ATankAIController::Tick(float DeltaTime)
         
     //Fire at player
     //TODO: Fix Firing
-    AITankAiming->Fire();
-    
+    EFiringStatus firingState = AITankAiming->GetFiringState();
+    if(firingState == EFiringStatus::Locked)
+    {
+        AITankAiming->Fire();
+    }
 }
 
