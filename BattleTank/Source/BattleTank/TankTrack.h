@@ -22,7 +22,7 @@ public:
     UPROPERTY(EditDefaultsOnly)
     float TrackMaxDrivingForce = 45000000.0;
     
-    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    //virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
     
     virtual void BeginPlay() override;
     
@@ -35,4 +35,10 @@ private:
     // Engine/UE4/Source/Runtime/Engine/Classes/Components/PrimitiveComponent.h
     UFUNCTION()
     void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+    
+    void ApplySidewaysForce();
+    
+    void DriveTrack();
+    
+    float currentThrottle = 0.0f;
 };
