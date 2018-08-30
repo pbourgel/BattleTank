@@ -35,7 +35,9 @@ void ATankPlayerController::AimTowardsCrosshair()
     //UE_LOG(LogTemp, Warning, TEXT("Hitlocation: %s"),*HitLocation.ToString());
     
     //Get world location of linetrace through crosshair (in Unityspeak this is a ScreenToPointRay raycast at the crosshair)
-    if(GetSightRayHitLocation(HitLocation)) //Side-effect: Performs raytrace and stores location of object hit in HitLocation
+    bool bGotHitLocation = GetSightRayHitLocation(HitLocation); //Side-effect: Performs raytrace and stores location of object hit in HitLocation
+    UE_LOG(LogTemp, Warning, TEXT("%i"), bGotHitLocation)
+    if(bGotHitLocation)
     {
         //If it hits the landscape
         //Tell aiming component to aim at this point
@@ -103,18 +105,12 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
     
     //"De-project" the screen position of the crosshair to a world direction
     if(GetLookDirection(screenLocation, lookDirection))
-    {
-        
+    {        
         //UE_LOG(LogTemp, Warning, TEXT("Found WorldDirection: %s"),*lookDirection.ToString())
         //Line-trace along that look direction and see what we hit up to a maximum range
         
-        if(GetLookVectorHitLocation(OutHitLocation, lookDirection))
-        {
-            //UE_LOG(LogTemp, Warning, TEXT("LookDirectionHit: %s"),*OutHitLocation.ToString())
-        }
-        
-        //if we did hit something, return true
-        return true;
+        return GetLookVectorHitLocation(OutHitLocation, lookDirection);
+
     }
     else
     {
