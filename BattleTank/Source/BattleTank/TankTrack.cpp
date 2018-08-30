@@ -41,7 +41,7 @@ void  UTankTrack::OnRegister() {
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-    UE_LOG(LogTemp, Warning, TEXT("%f: In OnHit event"), UGameplayStatics::GetRealTimeSeconds(GetWorld()))
+    //UE_LOG(LogTemp, Warning, TEXT("%f: In OnHit event"), UGameplayStatics::GetRealTimeSeconds(GetWorld()))
     //Drive the tracks
     //Apply a sideways force
     DriveTrack();

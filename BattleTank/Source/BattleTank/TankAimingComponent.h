@@ -12,7 +12,8 @@ enum class EFiringStatus : uint8
 {
     Reloading,
     Aiming,
-    Locked
+    Locked,
+    ManGotNoBullets
 };
 
 UENUM()
@@ -63,6 +64,9 @@ public:
     
     EFiringStatus GetFiringState() const;
     
+    UFUNCTION(BlueprintCallable, Category = Firing)
+    int32 GetBulletsLeft() const;
+    
 protected:
 
     
@@ -72,6 +76,8 @@ protected:
     //Needs to be protected so we can expose it to Blueprints
     UPROPERTY(BlueprintReadOnly, Category = State)
     EFiringStatus firingState = EFiringStatus::Reloading;
+    
+
     
 private:
     
@@ -95,5 +101,7 @@ private:
     TSubclassOf<AProjectile> projectileBlueprint;    //Alternative (see above) is TSubclassOf<UDamageType>
     
     EBarrelMoving IsBarrelMoving();
+    
+    int32 bulletsLeft = 3;
     
 };

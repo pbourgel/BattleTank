@@ -37,10 +37,14 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
     // ...
-    if((FPlatformTime::Seconds() - lastFireTime) < reloadTimeInSeconds)
+    if(bulletsLeft <= 0)
+    {
+        firingState = EFiringStatus::ManGotNoBullets;
+    }
+    else if((FPlatformTime::Seconds() - lastFireTime) < reloadTimeInSeconds)
     {
         
-        UE_LOG(LogTemp, Warning, TEXT("Time since last fire: %f"), FPlatformTime::Seconds() - lastFireTime)
+        //UE_LOG(LogTemp, Warning, TEXT("Time since last fire: %f"), FPlatformTime::Seconds() - lastFireTime)
         firingState = EFiringStatus::Reloading;
     }
     else if(IsBarrelMoving() == EBarrelMoving::Moving)
@@ -173,7 +177,8 @@ void UTankAimingComponent::Fire()
 {
     //ensure fails here
     
-    if(firingState != EFiringStatus::Reloading) {
+    if(firingState == EFiringStatus::Locked
+       || firingState == EFiringStatus::Aiming) {
         if(!ensure(tankBarrel)) { return; }
         if(!ensure(projectileBlueprint)) { return; }
         //Spawn a projectile at the socket location
@@ -184,7 +189,12 @@ void UTankAimingComponent::Fire()
         //TODO: Play Big Shaq BOOM sound
         
         lastFireTime = FPlatformTime::Seconds();
+        bulletsLeft--;
     }
 }
 
+int32 UTankAimingComponent::GetBulletsLeft() const
+{
+    return bulletsLeft;
+}
 
