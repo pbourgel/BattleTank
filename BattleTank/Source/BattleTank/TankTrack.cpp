@@ -1,6 +1,7 @@
 // It's MIT licensed fam
 
 #include "TankTrack.h"
+#include "Kismet/GameplayStatics.h"
 
 UTankTrack::UTankTrack()
 {
@@ -16,8 +17,8 @@ void UTankTrack::BeginPlay()
 void UTankTrack::SetThrottle(float throttleValue)
 {
     currentThrottle = FMath::Clamp<float>(currentThrottle + throttleValue, -1.0f, 1.0f);
-    DriveTrack();
-    currentThrottle = 0.0f;
+//    DriveTrack();
+//    currentThrottle = 0.0f;
 }
 
 void UTankTrack::DriveTrack()
@@ -40,10 +41,12 @@ void  UTankTrack::OnRegister() {
 
 void UTankTrack::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-    //UE_LOG(LogTemp, Warning, TEXT("%f: In OnHit event"), GetWorld()->GetDeltaSeconds())
+    UE_LOG(LogTemp, Warning, TEXT("%f: In OnHit event"), UGameplayStatics::GetRealTimeSeconds(GetWorld()))
     //Drive the tracks
     //Apply a sideways force
+    DriveTrack();
     ApplySidewaysForce();
+    currentThrottle = 0;
 }
 
 void UTankTrack::ApplySidewaysForce()
