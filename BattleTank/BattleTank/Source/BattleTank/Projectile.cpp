@@ -3,6 +3,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -25,6 +26,11 @@ AProjectile::AProjectile()
     ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
     ImpactBlast->SetupAttachment(CollisionMesh);
     ImpactBlast->bAutoActivate = false;
+    
+    ExplosionForce = CreateDefaultSubobject<URadialForceComponent>(FName("Explosion Force"));
+    ExplosionForce->SetupAttachment(CollisionMesh);
+    
+    
 }
 
 //When the projectile hits, we want to
@@ -37,6 +43,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
     LaunchBlast->Deactivate();
     ImpactBlast->Activate();
     //CollisionMesh->Deactivate();
+    ExplosionForce->FireImpulse();
 }
 
 // Called when the game starts or when spawned

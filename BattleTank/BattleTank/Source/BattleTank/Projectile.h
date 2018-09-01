@@ -9,6 +9,7 @@
 class UProjectileMovementComponent;
 class UStaticMeshComponent;
 class UParticleSystemComponent;
+class URadialForceComponent;
 
 /*
  * Launches projectiles and related effects.
@@ -37,6 +38,9 @@ protected:
     UPROPERTY(VisibleAnywhere, Category = Components, meta = (AllowPrivateAccess = true))
     UParticleSystemComponent* ImpactBlast = nullptr;
 
+    UPROPERTY(VisibleAnywhere, Category = Components, meta = (AllowPrivateAccess = true))
+    URadialForceComponent* ExplosionForce = nullptr;
+    
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
