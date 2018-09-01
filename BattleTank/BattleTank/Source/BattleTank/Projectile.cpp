@@ -34,16 +34,29 @@ AProjectile::AProjectile()
 }
 
 //When the projectile hits, we want to
-//  1. Stop the smoke trail
-//  2. Make the ting go BOOM
-//  3. Get rid of the round  (MAYBE TODO make it shatter)
+//  1. Stop the smoke trail (launch blast)
+//  2. Make the ting go BOOM (activate the impact blast)
+//  3. Push the tank
+//  4. Get rid of the round  (but we have to set a new root component before we get rid of the mesh)
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
     UE_LOG(LogTemp, Warning, TEXT("In ObHit()"))
     LaunchBlast->Deactivate();
     ImpactBlast->Activate();
-    //CollisionMesh->Deactivate();
     ExplosionForce->FireImpulse();
+    
+    SetRootComponent(ImpactBlast);
+    CollisionMesh->DestroyComponent();
+    
+    //We're setting up a simple timer to destroy the projectile after some time so it doesn't take up memory
+    FTimerHandle timerHandle;
+    
+    GetWorld()->GetTimerManager().SetTimer(timerHandle, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+}
+
+void AProjectile::OnTimerExpire()
+{
+    Destroy();
 }
 
 // Called when the game starts or when spawned

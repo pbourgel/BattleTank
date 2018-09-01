@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #pragma once
 
@@ -41,6 +41,9 @@ protected:
     UPROPERTY(VisibleAnywhere, Category = Components, meta = (AllowPrivateAccess = true))
     URadialForceComponent* ExplosionForce = nullptr;
     
+    UPROPERTY(EditDefaultsOnly, Category = Setup)
+    float DestroyDelay = 5.0f;
+    
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -52,4 +55,5 @@ private:
     UFUNCTION()
     void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
     
+    void OnTimerExpire();
 };
