@@ -8,7 +8,7 @@
 AProjectile::AProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = false;
     
     CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
     SetRootComponent(CollisionMesh);
@@ -22,13 +22,28 @@ AProjectile::AProjectile()
     projectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Movement"));
     projectileMovementComponent->bAutoActivate = false;
     
-    
+    ImpactBlast = CreateDefaultSubobject<UParticleSystemComponent>(FName("Impact Blast"));
+    ImpactBlast->SetupAttachment(CollisionMesh);
+    ImpactBlast->bAutoActivate = false;
+}
+
+//When the projectile hits, we want to
+//  1. Stop the smoke trail
+//  2. Make the ting go BOOM
+//  3. Get rid of the round  (MAYBE TODO make it shatter)
+void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+    UE_LOG(LogTemp, Warning, TEXT("In ObHit()"))
+    LaunchBlast->Deactivate();
+    ImpactBlast->Activate();
+    //CollisionMesh->Deactivate();
 }
 
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+    CollisionMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 
 // Called every frame
