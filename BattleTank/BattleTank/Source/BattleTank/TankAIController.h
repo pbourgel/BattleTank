@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #pragma once
 
@@ -31,7 +31,9 @@ private:
     UTankAimingComponent* AITankAiming;
     APawn* AITank;
     
+    virtual void SetPawn(APawn* InPawn) override;
 
-
+    UFUNCTION()
+    void OnTankDeath();
     
 };

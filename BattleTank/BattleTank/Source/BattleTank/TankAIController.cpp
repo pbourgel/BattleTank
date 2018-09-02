@@ -1,11 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// It's MIT licensed fam
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
 
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
+
 }
 
 void ATankAIController::Tick(float DeltaTime)
@@ -33,3 +35,21 @@ void ATankAIController::Tick(float DeltaTime)
     }
 }
 
+void ATankAIController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+    
+    if(InPawn)
+    {
+        ATank* PossessedTank = Cast<ATank>(InPawn);
+        if(!ensure(PossessedTank)) { return; }
+        
+        //Subscribe the local method to the tank's death event
+        PossessedTank->TankDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
+    }
+}
+
+void ATankAIController::OnTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("ATankAIController; In OnTankDeath()"))
+}

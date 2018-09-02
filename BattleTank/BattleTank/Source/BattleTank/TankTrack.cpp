@@ -34,7 +34,8 @@ void UTankTrack::DriveTrack()
     Cast<UPrimitiveComponent>(TankRoot)->AddForceAtLocation(ForceApplied, ForceLocation);
 }
 
-void  UTankTrack::OnRegister() {
+void  UTankTrack::OnRegister()
+{
     Super::OnRegister();
     PrimaryComponentTick.bCanEverTick = true;
 }

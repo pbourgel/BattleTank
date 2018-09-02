@@ -28,7 +28,7 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
     int32 DamagePoints = FPlatformMath::RoundToInt(DamageAmount);
     int32 DamageToApply = FMath::Clamp<int32>(DamagePoints, 0.0f, currentHealth);
     currentHealth -= DamageToApply;
-    if(currentHealth <= 0) { UE_LOG(LogTemp, Warning, TEXT("Tank is dead: Return of Ganon")) }
+    if(currentHealth <= 0) { TankDeath.Broadcast(); }
     UE_LOG(LogTemp, Warning, TEXT("OW!!! Damage amount = %f  Damage to apply = %i"), DamageAmount, DamageToApply)
     
     return DamageToApply;

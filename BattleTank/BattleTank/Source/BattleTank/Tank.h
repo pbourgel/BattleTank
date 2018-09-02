@@ -9,6 +9,10 @@
 //Forward declarations
 class UTankBarrel;
 
+//Delegate declarations
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDeathDelegate);
+
+
 /*
  * Handles firing and calls aiming functions on UTankAimingComponent.
  * This class keeps track of variables such as projectile launch speed and time to reload.
@@ -27,6 +31,8 @@ public:
     UFUNCTION(BlueprintPure, Category = Health)
     float GetHealthPercent() const;
     
+    FTankDeathDelegate TankDeath;
+    
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,4 +47,6 @@ private:
     
     UPROPERTY(VisibleAnywhere, Category = Stats)
     int32 currentHealth = 100.0f;
+    
+    FTankDeathDelegate TankDestructionDelegate;
 };

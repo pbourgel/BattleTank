@@ -78,7 +78,7 @@ protected:
     EFiringStatus firingState = EFiringStatus::Reloading;
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
-    int32 bulletsLeft = 3;
+    int32 bulletsLeft = 20;
     
 private:
     
@@ -95,7 +95,7 @@ private:
     double lastFireTime = 0;
     
     UPROPERTY(EditDefaultsOnly, Category = Firing)
-    float reloadTimeInSeconds = 3.0f;
+    float reloadTimeInSeconds = 2.0f;
     
     // https://docs.unrealengine.com/latest/INT/Programming/UnrealArchitecture/TSubclassOf
     UPROPERTY(EditDefaultsOnly, Category = Setup)

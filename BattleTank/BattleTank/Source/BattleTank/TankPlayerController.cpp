@@ -3,6 +3,7 @@
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
 #include "Math/Vector.h"
+#include "Tank.h"
 
 /*
  * Responsible for helping the player aim
@@ -119,3 +120,23 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
     }
     
 }
+
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+    
+    if(InPawn)
+    {
+        ATank* PossessedTank = Cast<ATank>(InPawn);
+        if(!ensure(PossessedTank)) { return; }
+        
+        //Subscribe the local method to the tank's death event
+        PossessedTank->TankDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
+    }
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+    UE_LOG(LogTemp, Warning, TEXT("ATankPlayerController; In OnTankDeath()"))
+}
+
