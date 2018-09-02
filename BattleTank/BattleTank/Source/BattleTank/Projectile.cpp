@@ -4,6 +4,9 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/DamageType.h"
+
 
 // Sets default values
 AProjectile::AProjectile()
@@ -48,9 +51,15 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
     SetRootComponent(ImpactBlast);
     CollisionMesh->DestroyComponent();
     
+    UGameplayStatics::ApplyRadialDamage(this,
+                                           baseDamage,
+                                           GetActorLocation(),
+                                           ExplosionForce->Radius,
+                                           UDamageType::StaticClass(),
+                                           TArray<AActor*>());
+
     //We're setting up a simple timer to destroy the projectile after some time so it doesn't take up memory
     FTimerHandle timerHandle;
-    
     GetWorld()->GetTimerManager().SetTimer(timerHandle, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
 }
 
