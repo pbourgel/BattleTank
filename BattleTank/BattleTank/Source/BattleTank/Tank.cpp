@@ -14,7 +14,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
     Super::BeginPlay();     //Needed for BP BeginPlay() to run!
-    startingTankHealth = currentHealth;
+    currentHealth = startingTankHealth;
 }
 
 

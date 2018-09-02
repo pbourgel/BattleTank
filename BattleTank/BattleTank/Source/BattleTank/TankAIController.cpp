@@ -53,5 +53,6 @@ void ATankAIController::OnTankDeath()
 {
     //UE_LOG(LogTemp, Warning, TEXT("ATankAIController; In OnTankDeath()"))
     //Would we play death animations/sequences around here?  Maybe
-    DetachFromControllerPendingDestroy();
+    if(!GetPawn()) { return; }
+    GetPawn()->DetachFromControllerPendingDestroy();
 }
