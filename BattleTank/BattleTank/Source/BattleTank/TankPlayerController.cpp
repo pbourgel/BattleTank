@@ -137,6 +137,8 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 
 void ATankPlayerController::OnTankDeath()
 {
-    UE_LOG(LogTemp, Warning, TEXT("ATankPlayerController; In OnTankDeath()"))
+    //UE_LOG(LogTemp, Warning, TEXT("ATankPlayerController; In OnTankDeath()"))
+    //Would we play death animations/sequences around here?  Maybe
+    StartSpectatingOnly();
 }
 
