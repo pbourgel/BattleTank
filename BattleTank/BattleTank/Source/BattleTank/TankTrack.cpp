@@ -10,6 +10,7 @@ UTankTrack::UTankTrack()
 
 void UTankTrack::BeginPlay()
 {
+    Super::BeginPlay();
     PrimaryComponentTick.bCanEverTick = false;
     OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
 }
@@ -23,7 +24,7 @@ void UTankTrack::SetThrottle(float throttleValue)
 
 void UTankTrack::DriveTrack()
 {
-    //UE_LOG(LogTemp, Warning, TEXT("%s: In SetThrottle: throttleValue %f"), *(GetName()), throttleValue)
+    UE_LOG(LogTemp, Warning, TEXT("%s: In SetThrottle: throttleValue %f"), *(GetName()), currentThrottle)
     
     //TODO?  The tutorial is gonna clamp this here.  I've already clamped it in BP, but hey, might as well when the get around to it.
     //Gotta sanitize those inputs
