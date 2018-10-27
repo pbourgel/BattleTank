@@ -16,7 +16,7 @@ void ATankAIController::Tick(float DeltaTime)
     APawn* playerTankPwn = GetWorld()->GetFirstPlayerController()->GetPawn();
     AITank = GetPawn();
     
-    if(!ensure(playerTankPwn && AITank)) { return; }
+    if(!(playerTankPwn && AITank)) { return; }
     
     //TODO: Move towards the player
     MoveToActor(Cast<AActor>(playerTankPwn), AcceptanceRadius, true, true, false);  //TODO: Check radius is in centimeters
@@ -42,7 +42,7 @@ void ATankAIController::SetPawn(APawn* InPawn)
     if(InPawn)
     {
         ATank* PossessedTank = Cast<ATank>(InPawn);
-        if(!ensure(PossessedTank)) { return; }
+        if(!PossessedTank) { return; }
         
         //Subscribe the local method to the tank's death event
         PossessedTank->TankDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
