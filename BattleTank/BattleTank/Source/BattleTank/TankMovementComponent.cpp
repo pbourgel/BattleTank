@@ -6,7 +6,7 @@
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-    UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
+    //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
         if(!ensure(LeftTrack && RightTrack)) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
@@ -14,7 +14,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-    UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
+    //UE_LOG(LogTemp, Warning, TEXT("IntendMoveForward: Throw = %f"), Throw)
         if(!ensure(LeftTrack && RightTrack)) { return; }  //MAYBE TODO: Report an error
     LeftTrack->SetThrottle(-Throw);
     RightTrack->SetThrottle(Throw);
@@ -23,7 +23,7 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
     //No need to call Super 'cause we're overriding errythang
-    UE_LOG(LogTemp, Warning, TEXT("%s in RequestDirectMove() with MoveVelocity %s"), *(GetName()), *(MoveVelocity.ToString()))
+    //UE_LOG(LogTemp, Warning, TEXT("%s in RequestDirectMove() with MoveVelocity %s"), *(GetName()), *(MoveVelocity.ToString()))
     
     FVector AIForwardIntention = MoveVelocity.GetSafeNormal();
     FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();

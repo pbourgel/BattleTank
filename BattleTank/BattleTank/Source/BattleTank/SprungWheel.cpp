@@ -15,9 +15,6 @@ ASprungWheel::ASprungWheel()
     //Spring->SetupAttachment(Mass);
     SetRootComponent(Spring);
     
-    Mass = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mass"));
-    Mass->SetupAttachment(Spring);
-    
     Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
     Wheel->SetupAttachment(Spring);
 
@@ -42,19 +39,39 @@ ASprungWheel::ASprungWheel()
 
 }
 
-// Called when the game starts or when spawned
-void ASprungWheel::BeginPlay()
+void ASprungWheel::SetupConstraints()
 {
-	Super::BeginPlay();
     auto returnedActor = GetAttachParentActor();
     if(returnedActor)
     {
-        UE_LOG(LogTemp, Warning, TEXT("returnedActor not null: %s"), *GetAttachParentActor()->GetName())
+        //UE_LOG(LogTemp, Warning, TEXT("returnedActor not null: %s"), *GetAttachParentActor()->GetName())
+        UPrimitiveComponent* bodyComponent = Cast<UPrimitiveComponent>(returnedActor->GetRootComponent());
+        if(bodyComponent == nullptr)
+        {
+            UE_LOG(LogTemp, Error, TEXT("Can't find component for SprungWheel to attach to"))
+            return;
+        }
+        else
+        {
+            Spring->SetConstrainedComponents(
+                                             bodyComponent,
+                                             /*returnedActor->GetName()*/ NAME_None,
+                                             Wheel,
+                                             /*Wheel->GetName()*/ NAME_None);
+        }
     }
     else
     {
         UE_LOG(LogTemp, Warning, TEXT("Null returnedActor"))
+        return;
     }
+}
+
+// Called when the game starts or when spawned
+void ASprungWheel::BeginPlay()
+{
+	Super::BeginPlay();
+    SetupConstraints();
 }
 
 // Called every frame
