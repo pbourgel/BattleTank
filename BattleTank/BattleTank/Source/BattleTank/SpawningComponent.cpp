@@ -19,7 +19,7 @@ USpawningComponent::USpawningComponent()
 void USpawningComponent::BeginPlay()
 {
 	Super::BeginPlay();
-    AActor* spawnedWheel = GetWorld()->SpawnActorDeferred<AActor>(WheelAttachment, GetComponentTransform());
+    spawnedWheel = GetWorld()->SpawnActorDeferred<AActor>(WheelAttachment, GetComponentTransform());
     if(spawnedWheel != nullptr)
     {
         spawnedWheel->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
@@ -42,9 +42,15 @@ void USpawningComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	// ...
 }
 
-USphereComponent* USpawningComponent::GetWheelComponent() const
+AActor* USpawningComponent::GetSpawnedWheel() const
 {
-    ASprungWheel* SprungWheel = Cast<ASprungWheel*>(spawnedWheel);
-    return SprungWheel->GetWheel();   
+    if(spawnedWheel)
+    {
+    return spawnedWheel;
+    }
+    else
+    {
+        return nullptr;
+    }
     
 }

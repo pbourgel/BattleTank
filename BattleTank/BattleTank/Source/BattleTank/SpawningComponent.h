@@ -17,19 +17,21 @@ public:
 	// Sets default values for this component's properties
 	USpawningComponent();
 
+    // Called every frame
+    virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+    
+    UPROPERTY(EditDefaultsOnly, Category = PhysicsAttachment)
+    TSubclassOf<AActor> WheelAttachment;
+    
+    AActor* GetSpawnedWheel() const;
+    
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY(EditDefaultsOnly, Category = PhysicsAttachment)
-    TSubclassOf<AActor> WheelAttachment;
-
+    
 private:
     
-
+    UPROPERTY()
+    AActor* spawnedWheel;
     
 };

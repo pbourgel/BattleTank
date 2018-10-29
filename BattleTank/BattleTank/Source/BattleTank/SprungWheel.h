@@ -24,6 +24,8 @@ public:
     
     void ApplyDrivingForce(float ForceMagnitude);
     
+    void ApplyForce();
+    
     USphereComponent* GetWheel() const;
     
 protected:
@@ -45,5 +47,10 @@ private:
     
     UPROPERTY(VisibleAnywhere, Category = "Components")
     USphereComponent* Axle;
+    
+    UFUNCTION()
+    void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+    
+    float TotalForceMagnitudeThisFrame;
     
 };
