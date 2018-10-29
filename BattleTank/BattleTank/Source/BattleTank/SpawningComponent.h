@@ -6,6 +6,7 @@
 #include "Components/SceneComponent.h"
 #include "SpawningComponent.generated.h"
 
+class USphereComponent;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API USpawningComponent : public USceneComponent
@@ -26,6 +27,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = PhysicsAttachment)
     TSubclassOf<AActor> WheelAttachment;
+
+private:
+    
 
     
 };

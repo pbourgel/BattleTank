@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "TankTrack.generated.h"
 
+class ASprungWheel;
+
 /**
  * UTankTrack applies driving forces to the tank tracks.
  */
@@ -30,15 +32,9 @@ public:
     
 private:
     UTankTrack();
+     
+    void DriveTrack(float currentThrottle);
     
-    //Hi, you're probably here because Epic changed the signature for OnHit's delegate function.  The file you're probably looking for in the source is
-    // Engine/UE4/Source/Runtime/Engine/Classes/Components/PrimitiveComponent.h
-    UFUNCTION()
-    void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+    TArray<ASprungWheel*> GetWheels() const;
     
-    void ApplySidewaysForce();
-    
-    void DriveTrack();
-    
-    float currentThrottle = 0.0f;
 };

@@ -3,6 +3,7 @@
 #include "SprungWheel.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/SphereComponent.h"
 
 
 // Sets default values
@@ -14,10 +15,16 @@ ASprungWheel::ASprungWheel()
     Spring = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Spring"));
     //Spring->SetupAttachment(Mass);
     SetRootComponent(Spring);
-    
-    Wheel = CreateDefaultSubobject<UStaticMeshComponent>(FName("Wheel"));
-    Wheel->SetupAttachment(Spring);
 
+    Axle = CreateDefaultSubobject<USphereComponent>(FName("Axle"));
+    Axle->SetupAttachment(Spring);
+    
+    AxleWheelConstraint = CreateDefaultSubobject<UPhysicsConstraintComponent>(FName("Axle - Wheel Constraint"));
+    AxleWheelConstraint->SetupAttachment(Axle);
+    
+    Wheel = CreateDefaultSubobject<USphereComponent>(FName("Wheel"));
+    Wheel->SetupAttachment(Axle);
+    
     //Spring->ComponentName1.ComponentName = FName(Mass->GetName());
     //Spring->ComponentName2.ComponentName = Wheel->GetName();
     
@@ -56,8 +63,10 @@ void ASprungWheel::SetupConstraints()
             Spring->SetConstrainedComponents(
                                              bodyComponent,
                                              /*returnedActor->GetName()*/ NAME_None,
-                                             Wheel,
+                                             Axle,
                                              /*Wheel->GetName()*/ NAME_None);
+            
+            AxleWheelConstraint->SetConstrainedComponents(Axle, NAME_None, Wheel, NAME_None);
         }
     }
     else
@@ -81,3 +90,12 @@ void ASprungWheel::Tick(float DeltaTime)
 
 }
 
+void ASprungWheel::ApplyDrivingForce(float ForceMagnitude)
+{
+    Wheel->AddForce((Axle->GetForwardVector() * ForceMagnitude));
+}
+
+USphereComponent* ASprungWheel::GetWheel() const
+{
+    return Wheel;
+}

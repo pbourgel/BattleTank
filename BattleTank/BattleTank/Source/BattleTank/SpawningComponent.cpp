@@ -2,6 +2,7 @@
 
 #include "SpawningComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values for this component's properties
 USpawningComponent::USpawningComponent()
@@ -41,3 +42,9 @@ void USpawningComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	// ...
 }
 
+USphereComponent* USpawningComponent::GetWheelComponent() const
+{
+    ASprungWheel* SprungWheel = Cast<ASprungWheel*>(spawnedWheel);
+    return SprungWheel->GetWheel();   
+    
+}
